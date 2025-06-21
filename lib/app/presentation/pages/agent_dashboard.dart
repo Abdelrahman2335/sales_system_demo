@@ -1,31 +1,39 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:sales_system_demo/widgets/custom_lead_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sales_system_demo/app/presentation/widgets/build_table.dart';
+import 'package:sales_system_demo/app/presentation/widgets/custom_lead_card.dart';
 
-import 'dummy_data.dart';
+import '../widgets/add_customer.dart';
 
-class AgentDashboard extends StatefulWidget {
+class AgentDashboard extends ConsumerStatefulWidget {
   const AgentDashboard({super.key});
 
   @override
-  State<AgentDashboard> createState() => _AgentDashboardState();
+  ConsumerState<AgentDashboard> createState() => _AgentDashboardState();
 }
 
-class _AgentDashboardState extends State<AgentDashboard> {
+class _AgentDashboardState extends ConsumerState<AgentDashboard> {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    // final horizontalPadding = width > 1400 ? 280.0 : 16.0;
+    // final verticalPadding = height > 800 ? 100.0 : 16.0;
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(width, height),
       body: Center(
-        child: Column(
-          children: [_overview(), SizedBox(height: 50), _buildLeadCard()],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [_overview(), SizedBox(height: 50), BuildTable()],
+          ),
         ),
       ),
     );
   }
 
-  PreferredSizeWidget buildAppBar() {
+  PreferredSizeWidget buildAppBar(double width, double height) {
     return AppBar(
       actions: [
         Padding(
@@ -34,7 +42,9 @@ class _AgentDashboardState extends State<AgentDashboard> {
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.only(right: 14, left: 14, top: 8),
             ),
-            onPressed: () {},
+            onPressed:
+                () =>
+                    showDialog(context: context, builder: (_) => AddCustomer()),
             child: Text("Add new customer"),
           ),
         ),
@@ -84,48 +94,6 @@ class _AgentDashboardState extends State<AgentDashboard> {
               ],
             ),
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLeadCard() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Leads",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-        ),
-        DataTable(
-          columns: const [
-            DataColumn(label: Text("Name")),
-            DataColumn(label: Text("Phone")),
-            DataColumn(label: Text("City")),
-            DataColumn(label: Text("Region")),
-            DataColumn(label: Text("Products Interested")),
-            DataColumn(label: Text("Interest Level")),
-            DataColumn(label: Text("Interaction Date")),
-            DataColumn(label: Text("Contact Platform")),
-          ],
-          rows: List.generate(dummyCustomers.length, (index) {
-            final customer = dummyCustomers[index];
-            return DataRow(
-              onSelectChanged: (value) {
-                log(customer.fullName);
-              },
-              cells: [
-                DataCell(Text(customer.fullName)),
-                DataCell(Text(customer.phoneNumber)),
-                DataCell(Text(customer.city)),
-                DataCell(Text(customer.region)),
-                DataCell(Text(customer.productsInterested.join(', '))),
-                DataCell(Text(customer.interestLevel.name)),
-                DataCell(Text(customer.interactionDateTime.toString())),
-                DataCell(Text(customer.contactPlatform)),
-              ],
-            );
-          }),
         ),
       ],
     );

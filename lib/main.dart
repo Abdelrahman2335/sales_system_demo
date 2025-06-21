@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system_demo/agent_dashboard.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'app/presentation/pages/agent_dashboard.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Sales System Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-
       ),
       home: AgentDashboard(),
     );
