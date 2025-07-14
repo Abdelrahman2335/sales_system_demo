@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sales_system_demo/app/core/utls/app_router.dart';
 
-import 'app/presentation/pages/agent_dashboard.dart';
+import 'app/agent/presentation/pages/agent_dashboard.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
@@ -12,14 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
       title: 'Sales System Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: AgentDashboard(),
+      theme: ThemeData().copyWith(textTheme: GoogleFonts.latoTextTheme(),),
+      
+
+      
     );
+  
   }
 }

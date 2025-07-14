@@ -2,10 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sales_system_demo/app/data/data_sources/cities.dart';
-import 'package:sales_system_demo/app/data/data_sources/products.dart';
+import 'package:sales_system_demo/app/agent/data/data_sources/cities.dart';
+import 'package:sales_system_demo/app/agent/data/data_sources/products.dart';
 
-import '../constants/ui_strings.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -17,7 +16,6 @@ class AddCustomer extends StatefulWidget {
 class _AddCustomerState extends State<AddCustomer> {
   String selectedCity = egyptCities[0];
   String selectedItem = items[0];
-  String selectedPlatform = contactPlatforms[0];
   int? selectedIndex;
   DateTime selectedDate = DateTime.now();
   late TextEditingController _nameController;
@@ -318,19 +316,8 @@ class _AddCustomerState extends State<AddCustomer> {
                         borderRadius: BorderRadius.circular(9),
                       ),
                     ),
-                    items:
-                        contactPlatforms
-                            .map(
-                              (city) => DropdownMenuItem(
-                                value: city,
-                                child: FittedBox(child: Text(city)),
-                              ),
-                            )
-                            .toList(),
-                    value: selectedPlatform,
-                    onChanged: (Object? value) {
-                      selectedPlatform = value.toString();
-                    },
+                    items: [], onChanged: (value) {  },
+                    
                   ),
                 ),
               ],

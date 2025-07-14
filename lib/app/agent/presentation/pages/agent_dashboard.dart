@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sales_system_demo/app/presentation/widgets/build_table.dart';
-import 'package:sales_system_demo/app/presentation/widgets/custom_lead_card.dart';
-
+import 'package:sales_system_demo/app/agent/presentation/widgets/build_table.dart';
+import 'package:sales_system_demo/app/agent/presentation/widgets/custom_lead_card.dart';
 import '../widgets/add_customer.dart';
 
 class AgentDashboard extends ConsumerStatefulWidget {
@@ -68,27 +66,27 @@ class _AgentDashboardState extends ConsumerState<AgentDashboard> {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                buildLeadCard(
+                CustomLeadCard(
                   title: 'Total Assigned Customers',
-                  count: '120',
+                  count: 120,
                   color: Colors.green.withAlpha(100),
                 ),
                 const SizedBox(width: 77),
-                buildLeadCard(
+                CustomLeadCard(
                   title: 'Hot Leads',
-                  count: '25',
+                  count: 25,
                   color: Colors.red.withAlpha(100),
                 ),
                 const SizedBox(width: 77),
-                buildLeadCard(
+                CustomLeadCard(
                   title: 'Warm Leads',
-                  count: '60',
+                  count: 60,
                   color: Colors.orange.withAlpha(90),
                 ),
                 const SizedBox(width: 77),
-                buildLeadCard(
+                CustomLeadCard(
                   title: 'Not Interested Leads',
-                  count: '35',
+                  count: 35,
                   color: Colors.grey.withAlpha(100),
                 ),
               ],
