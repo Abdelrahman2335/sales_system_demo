@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sales_system_demo/app/core/utls/app_router.dart';
 
-import 'app/agent/presentation/pages/agent_dashboard.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));

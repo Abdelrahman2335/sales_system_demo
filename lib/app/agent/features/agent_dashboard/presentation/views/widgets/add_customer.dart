@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sales_system_demo/app/agent/data/data_sources/cities.dart';
-import 'package:sales_system_demo/app/agent/data/data_sources/products.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/cities.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/products.dart';
 
 
 class AddCustomer extends StatefulWidget {

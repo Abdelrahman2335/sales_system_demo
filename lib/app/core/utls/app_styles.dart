@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:sales_system_demo/app/core/utls/constants.dart';
 
 abstract class AppStyles {
   static const textStyle12 = TextStyle(
@@ -20,5 +21,10 @@ abstract class AppStyles {
   static const textStyle32 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
+  );
+  static const textStyle40 = TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.bold,
+    fontFamily: Constants.kRaleway,
   );
 }

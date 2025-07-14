@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sales_system_demo/app/agent/presentation/widgets/build_table.dart';
-import 'package:sales_system_demo/app/agent/presentation/widgets/custom_lead_card.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/build_table.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/custom_lead_card.dart';
 import '../widgets/add_customer.dart';
 
 class AgentDashboard extends ConsumerStatefulWidget {
