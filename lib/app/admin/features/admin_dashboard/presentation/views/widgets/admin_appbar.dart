@@ -13,7 +13,7 @@ class AdminAppBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 29, vertical: 20),
       child: Row(
         children: [
-          const Text(Constants.kDashBoardTitle, style: AppStyles.textStyle40),
+          const Text(Constants.kDashBoardTitle, style: AppStyles.textStyle32),
           const Spacer(),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
