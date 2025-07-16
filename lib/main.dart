@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sales_system_demo/app/core/utls/app_router.dart';
 
-
 void main() {
   runApp(ProviderScope(child: const MyApp()));
 }
@@ -17,11 +16,10 @@ class MyApp extends StatelessWidget {
       routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
       title: 'Sales System Demo',
-      theme: ThemeData().copyWith(textTheme: GoogleFonts.latoTextTheme(),),
-      
-
-      
+      theme: ThemeData().copyWith(
+        textTheme: GoogleFonts.latoTextTheme(),
+        scaffoldBackgroundColor: Color(0xffF7F8FA),
+      ),
     );
-  
   }
 }
