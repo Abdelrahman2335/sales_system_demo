@@ -7,7 +7,7 @@ abstract class AppRouter {
   static final router = GoRouter(
     routes: [
       GoRoute(path: "/", builder: (context, state) => AdminDashBoardView()),
-      GoRoute(path: "kSearchView",builder: (context, state) => SearchView(),)
+      GoRoute(path: "/kSearchView",builder: (context, state) => SearchView(),)
     ],
   );
 }

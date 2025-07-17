@@ -16,6 +16,7 @@ class CustomStatusCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 58, right: 30),
       child: Container(
+        constraints: const BoxConstraints(maxWidth: 300, minHeight: 150),
         height: MediaQuery.of(context).size.height * 0.15,
         decoration: BoxDecoration(
           boxShadow: [
@@ -35,21 +36,23 @@ class CustomStatusCard extends StatelessWidget {
 
           child: Padding(
             padding: const EdgeInsets.only(left: 24, top: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: AppStyles.textStyle16),
-                const SizedBox(height: 5),
-                Text(
-                  "$value",
-                  style:
-                      ishotlead
-                          ? AppStyles.textStyle32.copyWith(
-                            color: Color(0xffF35162),
-                          )
-                          : AppStyles.textStyle32,
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: AppStyles.textStyle16),
+                  const SizedBox(height: 5),
+                  Text(
+                    "$value",
+                    style:
+                        ishotlead
+                            ? AppStyles.textStyle32.copyWith(
+                              color: Color(0xffF35162),
+                            )
+                            : AppStyles.textStyle32,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

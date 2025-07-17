@@ -9,6 +9,7 @@ class CustomAgentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: const BoxConstraints(maxWidth: 600, minHeight: 300),
       height: MediaQuery.of(context).size.height * 0.30,
       decoration: BoxDecoration(
         boxShadow: [
@@ -20,7 +21,7 @@ class CustomAgentCard extends StatelessWidget {
           ),
           BoxShadow(
             color: Colors.grey.withValues(alpha: 0.2),
-
+    
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, -2),
@@ -29,12 +30,13 @@ class CustomAgentCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
       ),
-
-        child: AspectRatio(
-          aspectRatio: 3 / 2,
-
-          child: Padding(
-            padding: const EdgeInsets.only(top: 22, left: 13, right: 33.6),
+    
+      child: AspectRatio(
+        aspectRatio: 3 / 2,
+    
+        child: Padding(
+          padding: const EdgeInsets.only(top: 22, left: 13, right: 33.6),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,7 +51,7 @@ class CustomAgentCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 9.5),
                 const AgentLeads(),
-
+    
                 const Divider(
                   color: Color.fromARGB(255, 197, 197, 197),
                   height: 50,
@@ -57,7 +59,7 @@ class CustomAgentCard extends StatelessWidget {
                   indent: 40,
                   endIndent: 40,
                 ),
-
+    
                 const SizedBox(height: 9.5),
                 AgentCardBottomSection(
                   onHistoryPressed: () {},
@@ -66,7 +68,7 @@ class CustomAgentCard extends StatelessWidget {
               ],
             ),
           ),
-        
+        ),
       ),
     );
   }

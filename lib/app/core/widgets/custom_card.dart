@@ -8,15 +8,15 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final mediaQuery = MediaQuery.of(context);
-    return  Container(
+    return Container(
       height: 150,
       width: 240,
       decoration: BoxDecoration(
-        color: AppColor.kSecondry,
+        color: AppColor.kSecondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: const Padding(
-        padding:  EdgeInsets.all(19),
+        padding: EdgeInsets.all(19),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -6,6 +6,8 @@ class AdminDashBoardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: AdminDashBoardViewBody());
+    return const Scaffold(
+      body: SingleChildScrollView(child: AdminDashBoardViewBody()),
+    );
   }
 }

@@ -11,6 +11,7 @@ class AdminAppBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
+        spacing: 20,
         children: [
           const Text(Constants.kDashBoardTitle, style: AppStyles.textStyle32),
           const Spacer(),
@@ -26,7 +27,21 @@ class AdminAppBar extends StatelessWidget {
             ),
 
             onPressed: () {},
-            child: const Text("Search for agent", style: AppStyles.textStyle12),
+            child: const Text("Search for agent", style: AppStyles.textStyle14),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(150, 44),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+
+              backgroundColor: AppColor.kSecondary,
+              foregroundColor: Colors.white,
+            ),
+
+            onPressed: () {},
+            child: const Text("Add agent", style: AppStyles.textStyle14),
           ),
         ],
       ),

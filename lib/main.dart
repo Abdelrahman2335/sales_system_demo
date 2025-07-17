@@ -16,10 +16,7 @@ class MyApp extends StatelessWidget {
       routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
       title: 'Sales System Demo',
-      theme: ThemeData().copyWith(
-        textTheme: GoogleFonts.latoTextTheme(),
-        scaffoldBackgroundColor: Color(0xffF7F8FA),
-      ),
+      theme: ThemeData().copyWith(textTheme: GoogleFonts.latoTextTheme()),
     );
   }
 }
