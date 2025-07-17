@@ -3,11 +3,11 @@ import 'package:sales_system_demo/app/core/utls/constants.dart';
 
 abstract class AppStyles {
   static const textStyle12 = TextStyle(
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: FontWeight.normal,
   );
-  static const textStyle14 = TextStyle(
-    fontSize: 14,
+  static const textStyle16 = TextStyle(
+    fontSize: 16,
     fontWeight: FontWeight.normal,
   );
   static const textStyle18 = TextStyle(
