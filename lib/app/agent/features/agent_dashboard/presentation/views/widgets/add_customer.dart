@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/cities.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/products.dart';
-
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/dummy_constance.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/custom_drop_down_button.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/custom_form_field.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/interest_level.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -16,38 +18,17 @@ class AddCustomer extends StatefulWidget {
 class _AddCustomerState extends State<AddCustomer> {
   String selectedCity = egyptCities[0];
   String selectedItem = items[0];
-  int? selectedIndex;
+  String selectedPlatform = contactPlatforms[0];
+
   DateTime selectedDate = DateTime.now();
-  late TextEditingController _nameController;
-  late TextEditingController _phoneController;
-  late TextEditingController _regionController;
-  late TextEditingController _dateController;
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-    _phoneController = TextEditingController();
-    _regionController = TextEditingController();
-    _dateController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    _regionController.dispose();
-    _dateController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return AlertDialog(
-      title: Text("Add Customer"),
+      title: const Text("Add Customer"),
       actions: [
         TextButton(
           style: TextButton.styleFrom(
@@ -55,7 +36,7 @@ class _AddCustomerState extends State<AddCustomer> {
             foregroundColor: Colors.black,
           ),
           onPressed: () => Navigator.of(context).pop(),
-          child: Text("Cancel"),
+          child: const Text("Cancel"),
         ),
         SizedBox(width: width * 0.5),
         ElevatedButton(
@@ -81,193 +62,42 @@ class _AddCustomerState extends State<AddCustomer> {
               horizontal: width * 0.06,
               vertical: height * 0.08,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: width * 0.2,
-                  child: TextFormField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(height: 36),
-                SizedBox(
-                  width: width * 0.2,
-                  child: TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                      labelText: "Phone",
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty || value.length < 11) {
-                        return 'Please enter a valid phone number';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(height: 36),
-                SizedBox(
-                  width: width * 0.2,
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 36,
+                children: [
+                  const CustomFormField(labelText: "Name"),
+                  const CustomFormField(labelText: "Phone"),
+                  CustomDropdownButton(
                     items:
                         egyptCities
                             .map(
                               (city) => DropdownMenuItem(
                                 value: city,
-                                child: FittedBox(child: Text(city)),
+                                child: Text(city),
                               ),
                             )
                             .toList(),
                     value: selectedCity,
-                    onChanged: (Object? value) {
-                      selectedCity = value.toString();
-                    },
                   ),
-                ),
 
-                SizedBox(height: 36),
-                SizedBox(
-                  width: width * 0.2,
-                  child: TextFormField(
-                    controller: _regionController,
-                    decoration: InputDecoration(
-                      labelText: "Region",
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your region';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(height: 36),
+                  const CustomFormField(labelText: "Region"),
 
-                SizedBox(
-                  width: width * 0.2,
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
+                  CustomDropdownButton(
+                    value: selectedItem,
                     items:
                         items
                             .map(
                               (item) => DropdownMenuItem(
                                 value: item,
-                                child: FittedBox(child: Text(item)),
+                                child: Text(item),
                               ),
                             )
                             .toList(),
-                    value: selectedItem,
-                    onChanged: (Object? value) {
-                      selectedItem = value.toString();
-                    },
                   ),
-                ),
-                SizedBox(height: 36),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: List.generate(3, (index) {
-                    final labels = ['Hot Lead', 'Warm', 'Not Interested'];
-                    final isSelected = selectedIndex == index;
-
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: OutlinedButton(
-                        onPressed: () {
-                          setState(() {
-                            selectedIndex = index;
-                            log("$selectedIndex");
-                          });
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              isSelected
-                                  ? [
-                                    const Color(0xffff8981),
-                                    const Color(0xffffb483),
-                                    const Color(0xff4ca66e),
-                                  ][index]
-                                  : Colors.transparent,
-                          foregroundColor:
-                              isSelected
-                                  ? [
-                                    const Color(0xffff392b),
-                                    const Color(0xffff7624),
-                                    const Color(0xff199e5c),
-                                  ][index]
-                                  : Colors.grey,
-                          side: BorderSide(
-                            color: isSelected ? Colors.white : Colors.grey,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(21),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
-                          ),
-                        ),
-                        child: Text(
-                          labels[index],
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-                SizedBox(height: 36),
-
-                SizedBox(
-                  width: width * 0.2,
-                  child: GestureDetector(
+                  const InterestLevel(),
+                  GestureDetector(
                     onTap: () async {
                       final pickedDate = await showDatePicker(
                         context: context,
@@ -278,49 +108,30 @@ class _AddCustomerState extends State<AddCustomer> {
                       if (pickedDate != null) {
                         setState(() {
                           selectedDate = pickedDate;
-                          _dateController.text = DateFormat.yMMMd().format(
-                            selectedDate,
-                          );
                         });
                       }
                     },
-
                     child: AbsorbPointer(
-                      child: TextFormField(
-                        controller: _dateController,
-                        decoration: InputDecoration(
-                          labelText: DateFormat.yMMMd().format(selectedDate),
-                          contentPadding: EdgeInsets.all(16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                          suffixIcon: Icon(Icons.calendar_month),
-                        ),
+                      child: CustomFormField(
+                        labelText: DateFormat.yMMMd().format(selectedDate),
+                        suffixIcon: const Icon(Icons.calendar_month),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 36),
-                SizedBox(
-                  width: width * 0.2,
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
-                    items: [], onChanged: (value) {  },
-                    
+                  CustomDropdownButton(
+                    items:
+                        contactPlatforms
+                            .map(
+                              (platform) => DropdownMenuItem(
+                                value: platform,
+                                child: Text(platform),
+                              ),
+                            )
+                            .toList(),
+                    value: selectedPlatform,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

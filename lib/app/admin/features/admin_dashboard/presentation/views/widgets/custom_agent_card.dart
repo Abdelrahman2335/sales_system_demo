@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sales_system_demo/app/admin/features/admin_dashboard/presentation/views/widgets/agent_card_top_section.dart';
 import 'package:sales_system_demo/app/admin/features/admin_dashboard/presentation/views/widgets/agent_leads.dart';
 import 'package:sales_system_demo/app/admin/features/admin_dashboard/presentation/views/widgets/bottom_section.dart';
+import 'package:sales_system_demo/app/admin/features/admin_dashboard/presentation/views/widgets/custom_admin_dialog.dart';
 
 class CustomAgentCard extends StatelessWidget {
   const CustomAgentCard({super.key});
@@ -21,7 +22,7 @@ class CustomAgentCard extends StatelessWidget {
           ),
           BoxShadow(
             color: Colors.grey.withValues(alpha: 0.2),
-    
+
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, -2),
@@ -30,10 +31,10 @@ class CustomAgentCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
       ),
-    
+
       child: AspectRatio(
         aspectRatio: 3 / 2,
-    
+
         child: Padding(
           padding: const EdgeInsets.only(top: 22, left: 13, right: 33.6),
           child: SingleChildScrollView(
@@ -51,7 +52,7 @@ class CustomAgentCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 9.5),
                 const AgentLeads(),
-    
+
                 const Divider(
                   color: Color.fromARGB(255, 197, 197, 197),
                   height: 50,
@@ -59,11 +60,18 @@ class CustomAgentCard extends StatelessWidget {
                   indent: 40,
                   endIndent: 40,
                 ),
-    
+
                 const SizedBox(height: 9.5),
                 AgentCardBottomSection(
-                  onHistoryPressed: () {},
-                  onViewDetailsPressed: () {},
+                  // onHistoryPressed: () {},
+                  onViewDetailsPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomAdminDialog();
+                      },
+                    );
+                  },
                 ),
               ],
             ),

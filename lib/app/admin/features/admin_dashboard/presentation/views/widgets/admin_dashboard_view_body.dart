@@ -17,9 +17,8 @@ class AdminDashBoardViewBody extends StatelessWidget {
 
           const OverallPerformance(),
 
-          const SizedBox(height: 25),
 
-          const SizedBox(height: 44),
+          const SizedBox(height: 69),
           Center(
             child: Wrap(
               spacing: 40,

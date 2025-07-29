@@ -1,4 +1,4 @@
-final List<String> items = [
+const List<String> items = [
   'Classic Wooden Door',
   'Sliding Glass Door',
   'Iron Security Door',
@@ -19,4 +19,14 @@ final List<String> items = [
   'Office Desk',
   'Wooden Bed Frame',
   'Corner Shelf Unit',
+];
+
+const List<String> contactPlatforms = [
+  'WhatsApp',
+  'Instagram',
+  'Telegram',
+  'Phone Call',
+  'Messenger',
+  'TikTok',
+  'Other',
 ];
