@@ -11,9 +11,10 @@ class AgentDashboardCubit extends Cubit<AgentDashboardState> {
 
   final AgentDashboardRepo agentDashboardRepo;
   final FirebaseService firebaseService = FirebaseService();
+
   Future<void> fetchCustomerList() async {
-    var result = await agentDashboardRepo.fetchCustomerList(agentId: "");
     emit(AgentDashboardLoading());
+    var result = await agentDashboardRepo.fetchCustomerList(agentId: "");
     result.fold(
       (error) {
         emit(AgentDashboardFailure(error.errorMessage));
@@ -22,5 +23,43 @@ class AgentDashboardCubit extends Cubit<AgentDashboardState> {
         emit(AgentDashboardSuccess(value));
       },
     );
+  }
+
+  void filterByInterestLevel(InterestLevel? level) {
+    if (state is AgentDashboardSuccess) {
+      final allCustomers = (state as AgentDashboardSuccess).customers;
+      if (level == null) {
+        // Show all customers
+        emit(AgentDashboardSuccess(allCustomers));
+      } else {
+        final filtered =
+            allCustomers.where((c) => c.interestLevel == level).toList();
+        emit(AgentDashboardSuccess(filtered));
+      }
+    }
+  }
+
+  Map<InterestLevel, int> getLeadCountsByLevel() {
+    if (state is AgentDashboardSuccess) {
+      final customers = (state as AgentDashboardSuccess).customers;
+
+      // Initialize counts for all enum values
+      final counts = <InterestLevel, int>{};
+      for (final level in InterestLevel.values) {
+        counts[level] = customers.where((c) => c.interestLevel == level).length;
+      }
+
+      return counts;
+    }
+
+    // Return empty counts if no data
+    return {for (final level in InterestLevel.values) level: 0};
+  }
+
+  int getTotalCustomerCount() {
+    if (state is AgentDashboardSuccess) {
+      return (state as AgentDashboardSuccess).customers.length;
+    }
+    return 0;
   }
 }

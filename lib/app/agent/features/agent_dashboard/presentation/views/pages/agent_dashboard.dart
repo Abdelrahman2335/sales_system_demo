@@ -18,6 +18,7 @@ class _AgentDashboardState extends State<AgentDashboard> {
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AgentDashboardCubit>().fetchCustomerList();
     });

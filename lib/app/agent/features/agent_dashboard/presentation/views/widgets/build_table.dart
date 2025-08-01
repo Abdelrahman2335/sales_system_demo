@@ -34,14 +34,6 @@ class BuildTable extends StatelessWidget {
                 "Header",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Color(0xFF12E57F),
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () {},
-                child: const Text('View all leads'),
-              ),
             ],
           ),
         ),
