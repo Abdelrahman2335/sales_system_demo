@@ -6,11 +6,15 @@ class CustomFormField extends StatefulWidget {
     required this.labelText,
     this.controller,
     this.suffixIcon,
+    this.onChanged,
+    this.initialValue,
   });
 
   final TextEditingController? controller;
   final String labelText;
   final Widget? suffixIcon;
+  final Function(String)? onChanged;
+  final String? initialValue;
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -23,7 +27,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   @override
   void initState() {
     if (widget.controller == null) {
-      _controller = TextEditingController();
+      _controller = TextEditingController(text: widget.initialValue ?? '');
       _isInternalController = true;
     } else {
       _controller = widget.controller!;
@@ -47,6 +51,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
       width: width * 0.2,
       child: TextFormField(
         controller: _controller,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           suffixIcon: widget.suffixIcon,
           labelText: widget.labelText,

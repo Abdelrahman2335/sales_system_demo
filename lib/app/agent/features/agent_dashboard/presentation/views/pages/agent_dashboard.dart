@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/agent_over_view.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/build_table.dart';
-import '../../../../add_customer/presentation/views/widgets/add_customer.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/add_customer.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/manager/add_customer/add_customer_cubit.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/data/repository/add_customer_repo_impl.dart';
 
 class AgentDashboard extends StatefulWidget {
   const AgentDashboard({super.key});
 
   @override
- State<AgentDashboard> createState() => _AgentDashboardState();
+  State<AgentDashboard> createState() => _AgentDashboardState();
 }
 
 class _AgentDashboardState extends State<AgentDashboard> {
@@ -40,8 +43,16 @@ class _AgentDashboardState extends State<AgentDashboard> {
               padding: EdgeInsets.only(right: 14, left: 14, top: 8),
             ),
             onPressed:
-                () =>
-                    showDialog(context: context, builder: (_) => AddCustomer()),
+                () => showDialog(
+                  context: context,
+                  builder:
+                      (_) => BlocProvider(
+                        create:
+                            (context) =>
+                                AddCustomerCubit(AddCustomerRepoImpl()),
+                        child: AddCustomer(),
+                      ),
+                ),
             child: Text("Add new customer"),
           ),
         ),
@@ -52,5 +63,4 @@ class _AgentDashboardState extends State<AgentDashboard> {
       ],
     );
   }
-
 }

@@ -16,6 +16,7 @@ extension InterestLevelText on InterestLevel {
 }
 
 final Uuid _uuid = Uuid();
+
 class CustomerModel {
   final String id;
   final String fullName;
@@ -51,7 +52,9 @@ class CustomerModel {
         (e) => e.toString() == 'InterestLevel.${json['interestLevel']}',
         orElse: () => InterestLevel.notInterested,
       ),
-      interactionDateTime: DateTime.parse(json['interactionDateTime'] as String),
+      interactionDateTime: DateTime.parse(
+        json['interactionDateTime'] as String,
+      ),
       contactPlatform: json['contactPlatform'] as String,
     );
   }
@@ -68,5 +71,30 @@ class CustomerModel {
       'interactionDateTime': interactionDateTime.toIso8601String(),
       'contactPlatform': contactPlatform,
     };
+  }
+
+  // Create a copy of the CustomerModel with updated fields
+  CustomerModel copyWith({
+    String? id,
+    String? fullName,
+    String? phoneNumber,
+    String? city,
+    String? region,
+    List<String>? interestedProducts,
+    InterestLevel? interestLevel,
+    DateTime? interactionDateTime,
+    String? contactPlatform,
+  }) {
+    return CustomerModel(
+      id: id ?? this.id,
+      fullName: fullName ?? this.fullName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      city: city ?? this.city,
+      region: region ?? this.region,
+      interestedProducts: interestedProducts ?? this.interestedProducts,
+      interestLevel: interestLevel ?? this.interestLevel,
+      interactionDateTime: interactionDateTime ?? this.interactionDateTime,
+      contactPlatform: contactPlatform ?? this.contactPlatform,
+    );
   }
 }
