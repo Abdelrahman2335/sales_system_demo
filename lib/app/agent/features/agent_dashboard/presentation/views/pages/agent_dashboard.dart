@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/agent_over_view.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/build_table.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/add_customer.dart';
-import 'package:sales_system_demo/app/agent/features/add_customer/presentation/manager/add_customer/add_customer_cubit.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/manager/add_customer_cubit/add_customer_cubit.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/data/repository/add_customer_repo_impl.dart';
 
 class AgentDashboard extends StatefulWidget {

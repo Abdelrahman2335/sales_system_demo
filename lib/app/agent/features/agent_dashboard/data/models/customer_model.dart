@@ -1,3 +1,4 @@
+import 'package:sales_system_demo/app/core/services/firebase_service.dart';
 import 'package:uuid/uuid.dart';
 
 enum InterestLevel { hotLead, warm, notInterested }
@@ -16,9 +17,11 @@ extension InterestLevelText on InterestLevel {
 }
 
 final Uuid _uuid = Uuid();
+final FirebaseService firebaseService = FirebaseService();
 
 class CustomerModel {
   final String id;
+  final String? agentId;
   final String fullName;
   final String phoneNumber;
   final String city;
@@ -38,11 +41,14 @@ class CustomerModel {
     required this.interactionDateTime,
     required this.contactPlatform,
     String? id,
-  }) : id = id ?? _uuid.v6();
+    String? agentId,
+  }) : id = id ?? _uuid.v6(),
+       agentId = agentId ?? firebaseService.auth.currentUser!.uid;
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) {
     return CustomerModel(
       id: json['id'] as String?,
+      agentId: json['agentId'] as String,
       fullName: json['fullName'] as String,
       phoneNumber: json['phoneNumber'] as String,
       city: json['city'] as String,
@@ -62,6 +68,7 @@ class CustomerModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'agentId': agentId,
       'fullName': fullName,
       'phoneNumber': phoneNumber,
       'city': city,
