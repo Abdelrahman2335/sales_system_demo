@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/cities.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/dummy_constance.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/custom_drop_down_button.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/custom_form_field.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/interest_level.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/data/cities.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/data/dummy_constance.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/custom_drop_down_button.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/custom_form_field.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/interest_level.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -35,7 +34,7 @@ class _AddCustomerState extends State<AddCustomer> {
             backgroundColor: Color(0xFFEEF2F0),
             foregroundColor: Colors.black,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text("Cancel"),
         ),
         SizedBox(width: width * 0.5),
@@ -45,9 +44,7 @@ class _AddCustomerState extends State<AddCustomer> {
             foregroundColor: Colors.black,
           ),
           onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              log("Customer added");
-            }
+            if (_formKey.currentState!.validate()) {}
           },
           child: Text("Add Customer"),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/agent_over_view.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/build_table.dart';
-import '../widgets/add_customer.dart';
+import '../../../../add_customer/presentation/views/widgets/add_customer.dart';
 
 class AgentDashboard extends StatefulWidget {
   const AgentDashboard({super.key});
