@@ -43,12 +43,12 @@ class CustomerModel {
     String? id,
     String? agentId,
   }) : id = id ?? _uuid.v6(),
-       agentId = agentId ?? firebaseService.auth.currentUser!.uid;
+       agentId = agentId ?? firebaseService.auth.currentUser?.uid;
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) {
     return CustomerModel(
       id: json['id'] as String?,
-      agentId: json['agentId'] as String,
+      agentId: json['agentId'] as String?,
       fullName: json['fullName'] as String,
       phoneNumber: json['phoneNumber'] as String,
       city: json['city'] as String,

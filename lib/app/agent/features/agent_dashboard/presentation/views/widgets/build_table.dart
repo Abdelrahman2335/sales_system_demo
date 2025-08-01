@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/data_sources/dummy_data.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/customer_dialog.dart';
 
 class BuildTable extends StatelessWidget {
-  const BuildTable({super.key});
+  const BuildTable({super.key, required this.customers});
 
+  final List<CustomerModel> customers;
   @override
   Widget build(BuildContext context) {
     const leadTableColumns = [
@@ -52,8 +52,8 @@ class BuildTable extends StatelessWidget {
             columns: List.generate(leadTableColumns.length, (columnIndex) {
               return DataColumn(label: Text(leadTableColumns[columnIndex]));
             }),
-            rows: List.generate(12, (index) {
-              final List<CustomerModel> source = dummyData.take(12).toList();
+            rows: List.generate(customers.length, (index) {
+              final List<CustomerModel> source = customers;
               final customer = source[index];
 
               return DataRow(

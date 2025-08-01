@@ -13,11 +13,14 @@ class AgentDashboardRepoImpl implements AgentDashboardRepo {
     required String agentId,
   }) async {
     try {
+      // final querySnapshot =
+      //     await _firebaseService.firestore
+      //         .collection("customers")
+      //         .where("agentId", isEqualTo: agentId)
+      //         .get();
+
       final querySnapshot =
-          await _firebaseService.firestore
-              .collection("customers")
-              .where("agentId", isEqualTo: agentId)
-              .get();
+          await _firebaseService.firestore.collection("customers").get();
       final customers =
           querySnapshot.docs
               .map((doc) => CustomerModel.fromJson(doc.data()))

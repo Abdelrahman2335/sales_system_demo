@@ -4,11 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/data/cities.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/data/dummy_constance.dart';
-import 'package:sales_system_demo/app/agent/features/add_customer/presentation/manager/add_customer_cubit/add_customer_cubit.dart';
+import 'package:sales_system_demo/app/agent/features/add_customer/presentation/manager/add_customer/add_customer_cubit.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/custom_drop_down_button.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/custom_form_field.dart';
 import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/interest_level.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/manager/agent_dashboard_cubit/agent_dashboard_cubit.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -28,6 +29,7 @@ class _AddCustomerState extends State<AddCustomer> {
     return BlocConsumer<AddCustomerCubit, AddCustomerState>(
       listener: (context, state) {
         if (state is AddCustomerSuccess) {
+          context.read<AgentDashboardCubit>().fetchCustomerList();
           GoRouter.of(context).pop();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Customer added successfully!')),

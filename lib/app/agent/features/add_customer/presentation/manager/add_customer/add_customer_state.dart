@@ -1,11 +1,8 @@
+
 part of 'add_customer_cubit.dart';
 
 @immutable
-sealed class AddCustomerState extends Equatable {
-  const AddCustomerState();
-  @override
-  List<Object> get props => [];
-}
+sealed class AddCustomerState {}
 
 final class AddCustomerInitial extends AddCustomerState {}
 
@@ -14,7 +11,7 @@ final class AddCustomerLoading extends AddCustomerState {}
 final class AddCustomerSuccess extends AddCustomerState {}
 
 final class AddCustomerFailure extends AddCustomerState {
-  const AddCustomerFailure(this.errMessage);
+  AddCustomerFailure(this.errMessage);
   final String errMessage;
 }
 
@@ -22,10 +19,7 @@ final class AddCustomerFormState extends AddCustomerState {
   final CustomerModel customer;
   final bool isFormValid;
 
-  const AddCustomerFormState({
-    required this.customer,
-    this.isFormValid = false,
-  });
+  AddCustomerFormState({required this.customer, this.isFormValid = false});
 
   AddCustomerFormState copyWith({CustomerModel? customer, bool? isFormValid}) {
     return AddCustomerFormState(
