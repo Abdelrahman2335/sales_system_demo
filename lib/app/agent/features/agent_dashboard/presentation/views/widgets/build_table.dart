@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/manager/agent_dashboard_cubit/agent_dashboard_cubit.dart';
-import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/customer_dialog.dart';
+import 'package:sales_system_demo/app/agent/features/edit_customer/data/repository/edit_customer_repo_impl.dart';
+import 'package:sales_system_demo/app/agent/features/edit_customer/presentation/manager/edit_customer/edit_customer_cubit.dart';
+import 'package:sales_system_demo/app/agent/features/edit_customer/presentation/views/widgets/edit_customer.dart';
 import 'package:sales_system_demo/app/core/utils/debug_logger.dart';
 
 class BuildTable extends StatelessWidget {
@@ -80,7 +82,14 @@ class BuildTable extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return CustomerDialog(customer: customer);
+                            return BlocProvider(
+                              create:
+                                  (context) => EditCustomerCubit(
+                                    EditCustomerRepoImpl(),
+                                    initialCustomer: customer,
+                                  ),
+                              child: EditCustomer(customer: customer),
+                            );
                           },
                         );
                       },
