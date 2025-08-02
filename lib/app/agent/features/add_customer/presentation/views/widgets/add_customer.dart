@@ -10,6 +10,7 @@ import 'package:sales_system_demo/app/agent/features/add_customer/presentation/v
 import 'package:sales_system_demo/app/agent/features/add_customer/presentation/views/widgets/interest_level.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/manager/agent_dashboard_cubit/agent_dashboard_cubit.dart';
+import 'package:sales_system_demo/app/core/utils/debug_logger.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -41,6 +42,7 @@ class _AddCustomerState extends State<AddCustomer> {
         }
       },
       builder: (context, state) {
+        DebugLogger.log("Start with state: $state");
         if (state is AddCustomerLoading) {
           return Center(child: CircularProgressIndicator());
         }
@@ -49,10 +51,9 @@ class _AddCustomerState extends State<AddCustomer> {
             state is AddCustomerFormState
                 ? state
                 : AddCustomerFormState(
-                  // selectedDate:
                   customer: CustomerModel(
                     fullName: "",
-                    phoneNumber: "",
+                    phoneNumber: 0,
                     city: egyptCities.isNotEmpty ? egyptCities[0] : '',
                     region: "",
                     interestedProducts: items.isNotEmpty ? items : [],
@@ -112,11 +113,11 @@ class _AddCustomerState extends State<AddCustomer> {
                       ),
                       CustomFormField(
                         labelText: "Phone",
-                        initialValue: formState.phone,
+                        initialValue: formState.phone.toString(),
                         onChanged:
                             (value) => context
                                 .read<AddCustomerCubit>()
-                                .phoneChanged(value),
+                                .phoneChanged(int.parse(value)),
                       ),
                       CustomDropdownButton(
                         items:

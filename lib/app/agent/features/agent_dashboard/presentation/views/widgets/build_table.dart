@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/manager/agent_dashboard_cubit/agent_dashboard_cubit.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/presentation/views/widgets/customer_dialog.dart';
+import 'package:sales_system_demo/app/core/utils/debug_logger.dart';
 
 class BuildTable extends StatelessWidget {
-  const BuildTable({super.key, required this.customers});
+  const BuildTable({super.key});
 
-  final List<CustomerModel> customers;
   @override
   Widget build(BuildContext context) {
+    List<CustomerModel> customers = [];
+
     const leadTableColumns = [
       "Name",
       "Phone",
@@ -19,9 +23,8 @@ class BuildTable extends StatelessWidget {
       "Contact Platform",
     ];
     final width = MediaQuery.of(context).size.width;
-    // final height = MediaQuery.of(context).size.height;
     final horizontalPadding = width > 1400 ? 280.0 : 16.0;
-    // final verticalPadding = height > 800 ? 100.0 : 16.0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -37,45 +40,76 @@ class BuildTable extends StatelessWidget {
             ],
           ),
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: DataTable(
-            showCheckboxColumn: false,
-            columns: List.generate(leadTableColumns.length, (columnIndex) {
-              return DataColumn(label: Text(leadTableColumns[columnIndex]));
-            }),
-            rows: List.generate(customers.length, (index) {
-              final List<CustomerModel> source = customers;
-              final customer = source[index];
-
-              return DataRow(
-                onSelectChanged: (value) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CustomerDialog();
-                    },
-                  );
-                },
-
-                cells: [
-                  DataCell(Text(customer.fullName)),
-                  DataCell(Text(customer.phoneNumber)),
-                  DataCell(Text(customer.city)),
-                  DataCell(Text(customer.region)),
-                  DataCell(
-                    Text(
-                      customer.interestedProducts.join(', '),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  DataCell(Text(customer.interestLevel.label)),
-                  DataCell(Text(customer.interactionDateTime.toString())),
-                  DataCell(Text(customer.contactPlatform)),
-                ],
+        BlocConsumer<AgentDashboardCubit, AgentDashboardState>(
+          listener: (context, state) {
+            if (state is AgentDashboardSuccess) {
+              customers = state.customers;
+              DebugLogger.log(
+                "state is AgentDashboardSuccess: ${customers.first.fullName}",
               );
-            }),
-          ),
+            } else if (state is AgentDashboardFiltered) {
+              customers = state.customers;
+              DebugLogger.log(
+                "state is AgentDashboardFiltered: ${customers.first.fullName}",
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is AgentDashboardSuccess) {
+              customers = state.customers;
+            } else if (state is AgentDashboardFiltered) {
+              customers = state.customers;
+            }
+            if (customers.isNotEmpty) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  showCheckboxColumn: false,
+                  columns: List.generate(leadTableColumns.length, (
+                    columnIndex,
+                  ) {
+                    return DataColumn(
+                      label: Text(leadTableColumns[columnIndex]),
+                    );
+                  }),
+                  rows: List.generate(customers.length, (index) {
+                    final customer = customers[index];
+
+                    return DataRow(
+                      onSelectChanged: (value) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CustomerDialog(customer: customer);
+                          },
+                        );
+                      },
+
+                      cells: [
+                        DataCell(Text(customer.fullName)),
+                        DataCell(Text(customer.phoneNumber.toString())),
+                        DataCell(Text(customer.city)),
+                        DataCell(Text(customer.region)),
+                        DataCell(
+                          Text(
+                            customer.interestedProducts.join(', '),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        DataCell(Text(customer.interestLevel.label)),
+                        DataCell(Text(customer.interactionDateTime.toString())),
+                        DataCell(Text(customer.contactPlatform)),
+                      ],
+                    );
+                  }),
+                ),
+              );
+            } else if (state is AgentDashboardFailure) {
+              return Center(child: Text(state.errMessage));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ],
     );

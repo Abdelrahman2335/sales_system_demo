@@ -23,7 +23,7 @@ class CustomerModel {
   final String id;
   final String? agentId;
   final String fullName;
-  final String phoneNumber;
+  final int phoneNumber;
   final String city;
   final String region;
   final List<String> interestedProducts;
@@ -50,7 +50,7 @@ class CustomerModel {
       id: json['id'] as String?,
       agentId: json['agentId'] as String?,
       fullName: json['fullName'] as String,
-      phoneNumber: json['phoneNumber'] as String,
+      phoneNumber: json['phoneNumber'] as int,
       city: json['city'] as String,
       region: json['region'] as String,
       interestedProducts: List<String>.from(json['interestedProducts'] ?? []),
@@ -84,7 +84,7 @@ class CustomerModel {
   CustomerModel copyWith({
     String? id,
     String? fullName,
-    String? phoneNumber,
+    int? phoneNumber,
     String? city,
     String? region,
     List<String>? interestedProducts,

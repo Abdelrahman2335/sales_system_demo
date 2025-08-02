@@ -14,7 +14,7 @@ class AddCustomerCubit extends Cubit<AddCustomerState> {
         AddCustomerFormState(
           customer: CustomerModel(
             fullName: '',
-            phoneNumber: '',
+            phoneNumber: 0,
             city: egyptCities.isNotEmpty ? egyptCities[0] : '',
             region: '',
             interestedProducts: items.isNotEmpty ? [items[0]] : [],
@@ -37,7 +37,7 @@ class AddCustomerCubit extends Cubit<AddCustomerState> {
     return AddCustomerFormState(
       customer: CustomerModel(
         fullName: '',
-        phoneNumber: '',
+        phoneNumber: 0,
         city: egyptCities.isNotEmpty ? egyptCities[0] : '',
         region: '',
         interestedProducts: items.isNotEmpty ? [items[0]] : [],
@@ -65,7 +65,7 @@ class AddCustomerCubit extends Cubit<AddCustomerState> {
     );
   }
 
-  void phoneChanged(String phone) {
+  void phoneChanged(int phone) {
     DebugLogger.log(
       'phoneChanged called with: $phone',
       tag: 'AddCustomerCubit',
@@ -206,9 +206,12 @@ class AddCustomerCubit extends Cubit<AddCustomerState> {
   }
 
   bool _validateForm(AddCustomerFormState state) {
-    return state.customer.fullName.isNotEmpty &&
-        state.customer.phoneNumber.isNotEmpty &&
+    bool isValid =
+        state.customer.fullName.isNotEmpty &&
+        state.customer.phoneNumber.toString().isNotEmpty &&
         state.customer.region.isNotEmpty;
+
+    return isValid;
   }
 
   Future<void> addCustomer({required CustomerModel customer}) async {
@@ -221,7 +224,6 @@ class AddCustomerCubit extends Cubit<AddCustomerState> {
         emit(AddCustomerFailure(failure.errorMessage));
       },
       (value) {
-        
         emit(AddCustomerSuccess());
       },
     );

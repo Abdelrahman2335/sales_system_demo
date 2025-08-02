@@ -9,48 +9,98 @@ class AgentOverView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AgentDashboardCubit>();
-    final counts = cubit.getLeadCountsByLevel();
+    int? hotLeads, warmLeads, coldLeads, totalLeads;
+    List<CustomerModel> customers = [];
+    return BlocConsumer<AgentDashboardCubit, AgentDashboardState>(
+      listener: (context, state) {
+        final cubit = context.read<AgentDashboardCubit>();
+        final counts = cubit.getLeadCountsByLevel();
+        if (state is AgentDashboardSuccess) {
+          hotLeads = counts[InterestLevel.hotLead]!;
+          warmLeads = counts[InterestLevel.warm]!;
+          coldLeads = counts[InterestLevel.notInterested]!;
+          totalLeads = cubit.getTotalCustomerCount();
+          customers = state.customers;
+        }
+      },
+      builder: (context, state) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 80),
+              child: SizedBox(
+                height: 180,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        context
+                            .read<AgentDashboardCubit>()
+                            .filterByInterestLevel(allCustomers: customers);
+                      },
+                      child: CustomLeadCard(
+                        title: 'Total Assigned Customers',
+                        count: totalLeads ?? 0,
+                        color: Colors.green.withAlpha(100),
+                      ),
+                    ),
+                    const SizedBox(width: 77),
+                    InkWell(
+                      onTap:
+                          () => context
+                              .read<AgentDashboardCubit>()
+                              .filterByInterestLevel(
+                                level: InterestLevel.hotLead,
+                                allCustomers: customers,
+                              ),
+                      child: CustomLeadCard(
+                        title: 'Hot Leads',
+                        count: hotLeads ?? 0,
+                        color: Colors.red.withAlpha(100),
+                      ),
+                    ),
+                    const SizedBox(width: 77),
+                    InkWell(
+                      onTap:
+                          () => context
+                              .read<AgentDashboardCubit>()
+                              .filterByInterestLevel(
+                                level: InterestLevel.warm,
+                                allCustomers: customers,
+                              ),
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 80),
-          child: SizedBox(
-            height: 180,
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                CustomLeadCard(
-                  title: 'Total Assigned Customers',
-                  count: cubit.getTotalCustomerCount(),
-                  color: Colors.green.withAlpha(100),
+                      child: CustomLeadCard(
+                        title: 'Warm Leads',
+                        count: warmLeads ?? 0,
+                        color: Colors.orange.withAlpha(90),
+                      ),
+                    ),
+                    const SizedBox(width: 77),
+                    InkWell(
+                      onTap:
+                          () => context
+                              .read<AgentDashboardCubit>()
+                              .filterByInterestLevel(
+                                level: InterestLevel.notInterested,
+                                allCustomers: customers,
+                              ),
+
+                      child: CustomLeadCard(
+                        title: 'Not Interested Leads',
+                        count: coldLeads ?? 0,
+                        color: Colors.grey.withAlpha(100),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 77),
-                CustomLeadCard(
-                  title: 'Hot Leads',
-                  count: counts[InterestLevel.hotLead] ?? 0,
-                  color: Colors.red.withAlpha(100),
-                ),
-                const SizedBox(width: 77),
-                CustomLeadCard(
-                  title: 'Warm Leads',
-                  count: counts[InterestLevel.warm] ?? 0,
-                  color: Colors.orange.withAlpha(90),
-                ),
-                const SizedBox(width: 77),
-                CustomLeadCard(
-                  title: 'Not Interested Leads',
-                  count: counts[InterestLevel.notInterested] ?? 0,
-                  color: Colors.grey.withAlpha(100),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

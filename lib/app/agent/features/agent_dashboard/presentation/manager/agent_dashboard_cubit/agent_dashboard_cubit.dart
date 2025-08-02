@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
 import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/repository/agent_dashboard_repo.dart';
 import 'package:sales_system_demo/app/core/services/firebase_service.dart';
+import 'package:sales_system_demo/app/core/utils/debug_logger.dart';
 
 part 'agent_dashboard_state.dart';
 
@@ -10,6 +11,7 @@ class AgentDashboardCubit extends Cubit<AgentDashboardState> {
   AgentDashboardCubit(this.agentDashboardRepo) : super(AgentDashboardInitial());
 
   final AgentDashboardRepo agentDashboardRepo;
+  // TODO: Use the agentId to add the customer.
   final FirebaseService firebaseService = FirebaseService();
 
   Future<void> fetchCustomerList() async {
@@ -25,17 +27,19 @@ class AgentDashboardCubit extends Cubit<AgentDashboardState> {
     );
   }
 
-  void filterByInterestLevel(InterestLevel? level) {
-    if (state is AgentDashboardSuccess) {
-      final allCustomers = (state as AgentDashboardSuccess).customers;
-      if (level == null) {
-        // Show all customers
-        emit(AgentDashboardSuccess(allCustomers));
-      } else {
-        final filtered =
-            allCustomers.where((c) => c.interestLevel == level).toList();
-        emit(AgentDashboardSuccess(filtered));
-      }
+  void filterByInterestLevel({
+    InterestLevel? level,
+    required List<CustomerModel> allCustomers,
+  }) {
+    emit(AgentDashboardLoading());
+    if (level == null) {
+      // Show all customers
+      emit(AgentDashboardSuccess(allCustomers));
+    } else {
+      final filtered =
+          allCustomers.where((c) => c.interestLevel == level).toList();
+      emit(AgentDashboardFiltered(filtered));
+      DebugLogger.log(filtered.first.fullName);
     }
   }
 

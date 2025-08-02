@@ -16,6 +16,14 @@ final class AgentDashboardSuccess extends AgentDashboardState {
   final List<CustomerModel> customers;
 }
 
+final class AgentDashboardFiltered extends AgentDashboardState {
+  const AgentDashboardFiltered(this.customers);
+  final List<CustomerModel> customers;
+
+  @override
+  List<Object> get props => [customers];
+}
+
 final class AgentDashboardFailure extends AgentDashboardState {
   const AgentDashboardFailure(this.errMessage);
   final String errMessage;

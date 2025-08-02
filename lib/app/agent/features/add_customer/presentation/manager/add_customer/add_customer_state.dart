@@ -1,4 +1,3 @@
-
 part of 'add_customer_cubit.dart';
 
 @immutable
@@ -30,7 +29,7 @@ final class AddCustomerFormState extends AddCustomerState {
 
   // Helper getters for easy access (optional - keeps existing UI code working)
   String get name => customer.fullName;
-  String get phone => customer.phoneNumber;
+  int get phone => customer.phoneNumber;
   String get region => customer.region;
   String get selectedCity => customer.city;
   List<String> get interestedProducts => customer.interestedProducts;

@@ -33,24 +33,16 @@ class _AgentDashboardState extends State<AgentDashboard> {
       body: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: BlocBuilder<AgentDashboardCubit, AgentDashboardState>(
-            builder: (context, state) {
-              if (state is AgentDashboardSuccess) {
-                return Column(
-                  children: [
+          child:  Column(
+                  children: const [
                     AgentOverView(),
                     SizedBox(height: 50),
-                    BuildTable(customers: state.customers),
+                    BuildTable(),
                   ],
-                );
-              } else if (state is AgentDashboardFailure) {
-                return Center(child: Text(state.errMessage));
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
-          ),
-        ),
+              
+            
+         
+        ),)
       ),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sales_system_demo/app/agent/features/agent_dashboard/data/models/customer_model.dart';
 
 class CustomerDialog extends StatelessWidget {
-  const CustomerDialog({super.key});
-
+  const CustomerDialog({super.key, required this.customer});
+  final CustomerModel customer;
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -14,12 +15,11 @@ class CustomerDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Agent Name',
+            Text(
+              customer.fullName,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            const Expanded(child: Text('Sales Agent')),
             const SizedBox(height: 20),
 
             TextButton(
